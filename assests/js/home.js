@@ -44,6 +44,19 @@ function handleToggle(id){
     document.getElementById(id).classList.remove('hidden')
 }
 
+// function to toggle buttons on Home page
+function handleButtonToggle(id){
+    const formBtns = document.getElementsByClassName('form-btn')
+    
+    for(const btn of formBtns){
+        btn.classList.remove('bg-[#0874f20d]', 'border-[#0874F2]')
+        btn.classList.add('border-gray-300')
+    }
+
+    document.getElementById(id).classList.remove('border-gray-300')
+    document.getElementById(id).classList.add('bg-[#0874f20d]', 'border-[#0874F2]')
+}
+
 // For Add money operation in Home Page
 document.getElementById('add-money-btn').addEventListener('click', function(e){
     e.preventDefault()
@@ -133,16 +146,19 @@ document.getElementById('transfer-money-btn').addEventListener('click', function
 document.getElementById('option-add-money').addEventListener('click', function(e){
 
     handleToggle('form-add-money')
+    handleButtonToggle('option-add-money')
 })
 
 // For Cash Out option
 document.getElementById('option-withdraw').addEventListener('click', function(){
     
     handleToggle('form-withdraw')
+    handleButtonToggle('option-withdraw')
 })
 
 // For Transfer Money option
 document.getElementById('option-transfer').addEventListener('click', function(){
     
     handleToggle('form-transfer')
+    handleButtonToggle('option-transfer')
 })
