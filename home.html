@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body class="font-[Outfit] bg-[#F4F5F7] h-full">
+<body class="font-[Outfit] bg-[#F4F5F7] min-h-screen">
     <section class="max-w-lg mx-auto bg-white rounded-b-xl">
         <div class="min-h-[50px] flex justify-between items-center border-b-1 border-gray-400 p-3">
             <div class="flex gap-3">
@@ -48,7 +48,7 @@
                 <img src="assests/images/send1.png" class="mx-auto" alt="">
                 <h2 class="mt-2">Cashout</h2>
             </div>
-            <div class="border-2 border-gray-300 text-center flex flex-col justify-center items-center p-4 rounded-xl">
+            <div id="option-transfer" class="border-2 border-gray-300 text-center flex flex-col justify-center items-center p-4 rounded-xl cursor-pointer active:bg-blue-100 active:border-blue-500">
                 <img src="assests/images/money1.png" class="mx-auto" alt="">
                 <h2 class="mt-2">Transfer Money</h2>
             </div>
@@ -69,7 +69,7 @@
 
     <div class="all-form-sectios max-w-lg mx-auto">
         <!-- Add money -->
-        <div id="form-add-money">
+        <div id="form-add-money" class="form">
             <h3 class="my-5 font-bold">Add Money</h3>
             <form action="" class="bg-white rounded-2xl p-8 space-y-3">
                 <div>
@@ -99,7 +99,7 @@
 
 
         <!-- Cash Out -->
-        <div id="form-withdraw" class="hidden">
+        <div id="form-withdraw" class="form">
             <h3 class="my-5 font-bold">Cash Out</h3>
             <form action="" class="bg-white rounded-2xl p-8 space-y-3">
                 <div>
@@ -115,6 +115,26 @@
                     <input id="withdraw-pin" type="text" placeholder="Enter 4 Digit pin number" class="input bg-[#F4F5F7] mt-3 rounded-3xl w-full" />
                 </div>
                 <button id="withdraw-money-btn" class="btn bg-[#0874F2] text-white mt-3 w-full rounded-3xl">Withdraw Money</button>
+            </form>
+        </div>
+
+        <!-- Transfer Money -->
+        <div id="form-transfer" class="form">
+            <h3 class="my-5 font-bold">Transfer Money</h3>
+            <form action="" class="bg-white rounded-2xl p-8 space-y-3">
+                <div>
+                    <label for="" class="font-semibold">User Account Number</label> <br>
+                    <input id="user-number" type="text" placeholder="Enter 11 digit number" class="input bg-[#F4F5F7] mt-3 rounded-3xl w-full" />
+                </div>
+                <div>
+                    <label for="" class="font-semibold">Amount</label> <br>
+                    <input id="transfer-amount" type="text" placeholder="Enter amount to transfer" class="input bg-[#F4F5F7] mt-3 rounded-3xl w-full" />
+                </div>
+                <div>
+                    <label for="" class="font-semibold">Pin Number</label> <br>
+                    <input id="transfer-pin" type="text" placeholder="Enter 4 Digit pin number" class="input bg-[#F4F5F7] mt-3 rounded-3xl w-full" />
+                </div>
+                <button id="transfer-money-btn" class="btn bg-[#0874F2] text-white mt-3 w-full rounded-3xl">Send Now</button>
             </form>
         </div>
     </div>

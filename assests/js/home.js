@@ -32,6 +32,18 @@ function setInnerText(value){
     availableBalanceElement.innerText = value
 }
 
+// function to handle toggle in MFS operations
+function handleToggle(id){
+    const forms = document.getElementsByClassName('form')
+
+    for(const form of forms){
+        form.classList.add('hidden')
+    }
+
+    document.getElementById(id).classList.add('block')
+    document.getElementById(id).classList.remove('hidden')
+}
+
 // For Add money operation in Home Page
 document.getElementById('add-money-btn').addEventListener('click', function(e){
     e.preventDefault()
@@ -87,20 +99,50 @@ document.getElementById('withdraw-money-btn').addEventListener('click', function
     setInnerText(totalNewAvailableBalance)
 })
 
-// Page options for Add money & Cash Out
-const formAddMoney = document.getElementById('form-add-money')
-const formWithdraw = document.getElementById('form-withdraw')
+// For Transfer Money operation in Home page
+document.getElementById('transfer-money-btn').addEventListener('click', function(e){
+    e.preventDefault()
+    console.log('Transfer button clicked')
+
+    const userNumber = getInputValue('user-number')
+    const transferAmount = getInputValueNumber('transfer-amount')
+    const pin = getInputValueNumber('transfer-pin')
+    const availableBalance = getInnerText('available-balance')
+
+    console.log(availableBalance)
+
+    if(userNumber.length < 11){
+        alert('Please provide valid user number')
+        return
+    }
+
+    if(pin !== validPin){
+        alert('Please provide valid pin number')
+        return
+    }
+
+    const totalNewAvailableBalance = availableBalance - transferAmount
+
+    setInnerText(totalNewAvailableBalance)
+})
+
+
+// Toggling feature
+
+// For Add money option
+document.getElementById('option-add-money').addEventListener('click', function(e){
+
+    handleToggle('form-add-money')
+})
 
 // For Cash Out option
 document.getElementById('option-withdraw').addEventListener('click', function(){
-    formWithdraw.classList.remove('hidden')
-    formAddMoney.classList.add('hidden')
-
+    
+    handleToggle('form-withdraw')
 })
 
-// For Add money option
-document.getElementById('option-add-money').addEventListener('click', function(){
-    formWithdraw.classList.add('hidden')
-    formAddMoney.classList.remove('hidden')
-
+// For Transfer Money option
+document.getElementById('option-transfer').addEventListener('click', function(){
+    
+    handleToggle('form-transfer')
 })
