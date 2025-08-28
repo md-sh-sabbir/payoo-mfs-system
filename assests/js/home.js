@@ -1,6 +1,6 @@
 const validPin = 1234
 
-// function to get input values
+// function to get input number values
 function getInputValueNumber(id){
     const inputField = document.getElementById(id)
     const inputFieldValue = inputField.value
@@ -9,16 +9,39 @@ function getInputValueNumber(id){
     return inputFieldValueNumber
 }
 
+// function to get input values only
+function getInputValue(id){
+    const inputField = document.getElementById(id)
+    const inputFieldValue = inputField.value
+
+    return inputFieldValue
+}
+
+// function to get inner text in HTML number elements calculte
+function getInnerText(id){
+    const element = document.getElementById(id)
+    const elementValue = element.innerText
+    const elementValueNumber = parseInt(elementValue)
+
+    return elementValueNumber
+}
+
+// function to set inner text in HTML
+function setInnerText(value){
+    const availableBalanceElement = document.getElementById('available-balance')
+    availableBalanceElement.innerText = value
+}
+
 // For Add money operation in Home Page
 document.getElementById('add-money-btn').addEventListener('click', function(e){
     e.preventDefault()
     console.log('add money btn clicked')
 
-    const bank = document.getElementById('bank').value 
-    const accountNumber = document.getElementById('account-number').value 
+    const bank = getInputValue('bank')
+    const accountNumber = getInputValue('account-number') 
     const amount = getInputValueNumber('add-amount')
     const pin = getInputValueNumber('add-pin')
-    const availableBalance = parseInt(document.getElementById('available-balance').innerText)
+    const availableBalance = getInnerText('available-balance')
 
     console.log(availableBalance)
 
@@ -34,7 +57,7 @@ document.getElementById('add-money-btn').addEventListener('click', function(e){
 
     const totalNewAvailableBalance = amount + availableBalance
 
-    document.getElementById('available-balance').innerText = totalNewAvailableBalance
+    setInnerText(totalNewAvailableBalance)
 })
 
 // For Cash Out operation in Home page
@@ -42,10 +65,10 @@ document.getElementById('withdraw-money-btn').addEventListener('click', function
     e.preventDefault()
     console.log('Withdraw button clicked')
 
-    const agentNumber = document.getElementById('agent-number').value
+    const agentNumber = getInputValue('agent-number')
     const withdrawAmount = getInputValueNumber('withdraw-amount')
     const pin = getInputValueNumber('withdraw-pin')
-    const availableBalance = parseInt(document.getElementById('available-balance').innerText)
+    const availableBalance = getInnerText('available-balance')
 
     console.log(availableBalance)
 
@@ -61,7 +84,7 @@ document.getElementById('withdraw-money-btn').addEventListener('click', function
 
     const totalNewAvailableBalance = availableBalance - withdrawAmount
 
-    document.getElementById('available-balance').innerText = totalNewAvailableBalance
+    setInnerText(totalNewAvailableBalance)
 })
 
 // Page options for Add money & Cash Out
