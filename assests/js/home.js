@@ -1,4 +1,5 @@
 const validPin = 1234
+const transactionData = []
 
 // function to get input number values
 function getInputValueNumber(id){
@@ -83,6 +84,13 @@ document.getElementById('add-money-btn').addEventListener('click', function(e){
     const totalNewAvailableBalance = amount + availableBalance
 
     setInnerText(totalNewAvailableBalance)
+
+    const data = {
+        name : 'Add Money',
+        date : new Date().toLocaleTimeString()
+    }
+
+    transactionData.push(data)
 })
 
 // For Cash Out operation in Home page
@@ -110,6 +118,13 @@ document.getElementById('withdraw-money-btn').addEventListener('click', function
     const totalNewAvailableBalance = availableBalance - withdrawAmount
 
     setInnerText(totalNewAvailableBalance)
+
+    const data = {
+        name : 'Cash Out',
+        date : new Date().toLocaleTimeString()
+    }
+
+    transactionData.push(data)
 })
 
 // For Transfer Money operation in Home page
@@ -137,8 +152,41 @@ document.getElementById('transfer-money-btn').addEventListener('click', function
     const totalNewAvailableBalance = availableBalance - transferAmount
 
     setInnerText(totalNewAvailableBalance)
+
+    const data = {
+        name : 'Transfer Money',
+        date : new Date().toLocaleTimeString()
+    }
+
+    transactionData.push(data)
 })
 
+document.getElementById('option-transaction').addEventListener('click', function(){
+    const transactionContainer = document.getElementById('transaction-container')
+    transactionContainer.innerText = ''
+
+    for(const data of transactionData){
+        const div = document.createElement('div')
+        div.innerHTML = `
+            <div class="bg-white rounded-xl p-3 flex justify-between items-center mt-3">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-[#F4F5F7]">
+                        <img src="assests/images/wallet1.png" alt="">
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="font-semibold">${data.name}</h1>
+                        <p>Today ${data.date}</p>
+                    </div>
+                </div>
+                <span class="text-xl">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </span>
+            </div>
+        `
+
+        transactionContainer.appendChild(div)
+    }
+})
 
 // Toggling feature
 
@@ -161,4 +209,11 @@ document.getElementById('option-transfer').addEventListener('click', function(){
     
     handleToggle('form-transfer')
     handleButtonToggle('option-transfer')
+})
+
+// For Transaction
+document.getElementById('option-transaction').addEventListener('click', function(){
+    
+    handleToggle('form-transaction')
+    handleButtonToggle('option-transaction')
 })
