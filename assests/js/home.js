@@ -2,7 +2,7 @@ const validPin = 1234
 const transactionData = []
 
 // function to get input number values
-function getInputValueNumber(id){
+function getInputValueNumber(id) {
     const inputField = document.getElementById(id)
     const inputFieldValue = inputField.value
     const inputFieldValueNumber = parseInt(inputFieldValue)
@@ -11,7 +11,7 @@ function getInputValueNumber(id){
 }
 
 // function to get input values only
-function getInputValue(id){
+function getInputValue(id) {
     const inputField = document.getElementById(id)
     const inputFieldValue = inputField.value
 
@@ -19,7 +19,7 @@ function getInputValue(id){
 }
 
 // function to get inner text in HTML number elements calculte
-function getInnerText(id){
+function getInnerText(id) {
     const element = document.getElementById(id)
     const elementValue = element.innerText
     const elementValueNumber = parseInt(elementValue)
@@ -28,16 +28,16 @@ function getInnerText(id){
 }
 
 // function to set inner text in HTML
-function setInnerText(value){
+function setInnerText(value) {
     const availableBalanceElement = document.getElementById('available-balance')
     availableBalanceElement.innerText = value
 }
 
 // function to handle toggle in MFS operations
-function handleToggle(id){
+function handleToggle(id) {
     const forms = document.getElementsByClassName('form')
 
-    for(const form of forms){
+    for (const form of forms) {
         form.classList.add('hidden')
     }
 
@@ -46,10 +46,10 @@ function handleToggle(id){
 }
 
 // function to toggle buttons on Home page
-function handleButtonToggle(id){
+function handleButtonToggle(id) {
     const formBtns = document.getElementsByClassName('form-btn')
-    
-    for(const btn of formBtns){
+
+    for (const btn of formBtns) {
         btn.classList.remove('bg-[#0874f20d]', 'border-[#0874F2]')
         btn.classList.add('border-gray-300')
     }
@@ -59,24 +59,30 @@ function handleButtonToggle(id){
 }
 
 // For Add money operation in Home Page
-document.getElementById('add-money-btn').addEventListener('click', function(e){
+document.getElementById('add-money-btn').addEventListener('click', function (e) {
     e.preventDefault()
     console.log('add money btn clicked')
 
     const bank = getInputValue('bank')
-    const accountNumber = getInputValue('account-number') 
+    const accountNumber = getInputValue('account-number')
     const amount = getInputValueNumber('add-amount')
+
+    if (amount <= 0) {
+        alert('Invalid amount')
+        return
+    }
+
     const pin = getInputValueNumber('add-pin')
     const availableBalance = getInnerText('available-balance')
 
     console.log(availableBalance)
 
-    if(accountNumber.length < 11){
+    if (accountNumber.length < 11) {
         alert('Please provide valid account number')
         return
     }
 
-    if(pin !== validPin){
+    if (pin !== validPin) {
         alert('Please provide valid pin number')
         return
     }
@@ -86,15 +92,15 @@ document.getElementById('add-money-btn').addEventListener('click', function(e){
     setInnerText(totalNewAvailableBalance)
 
     const data = {
-        name : 'Add Money',
-        date : new Date().toLocaleTimeString()
+        name: 'Add Money',
+        date: new Date().toLocaleTimeString()
     }
 
     transactionData.push(data)
 })
 
 // For Cash Out operation in Home page
-document.getElementById('withdraw-money-btn').addEventListener('click', function(e){
+document.getElementById('withdraw-money-btn').addEventListener('click', function (e) {
     e.preventDefault()
     console.log('Withdraw button clicked')
 
@@ -103,14 +109,20 @@ document.getElementById('withdraw-money-btn').addEventListener('click', function
     const pin = getInputValueNumber('withdraw-pin')
     const availableBalance = getInnerText('available-balance')
 
+    if (withdrawAmount <= 0 || withdrawAmount > availableBalance) {
+        alert('Invalid amount')
+        return
+    }
+
+
     console.log(availableBalance)
 
-    if(agentNumber.length < 11){
+    if (agentNumber.length < 11) {
         alert('Please provide valid agent number')
         return
     }
 
-    if(pin !== validPin){
+    if (pin !== validPin) {
         alert('Please provide valid pin number')
         return
     }
@@ -120,15 +132,15 @@ document.getElementById('withdraw-money-btn').addEventListener('click', function
     setInnerText(totalNewAvailableBalance)
 
     const data = {
-        name : 'Cash Out',
-        date : new Date().toLocaleTimeString()
+        name: 'Cash Out',
+        date: new Date().toLocaleTimeString()
     }
 
     transactionData.push(data)
 })
 
 // For Transfer Money operation in Home page
-document.getElementById('transfer-money-btn').addEventListener('click', function(e){
+document.getElementById('transfer-money-btn').addEventListener('click', function (e) {
     e.preventDefault()
     console.log('Transfer button clicked')
 
@@ -139,12 +151,12 @@ document.getElementById('transfer-money-btn').addEventListener('click', function
 
     console.log(availableBalance)
 
-    if(userNumber.length < 11){
+    if (userNumber.length < 11) {
         alert('Please provide valid user number')
         return
     }
 
-    if(pin !== validPin){
+    if (pin !== validPin) {
         alert('Please provide valid pin number')
         return
     }
@@ -154,18 +166,18 @@ document.getElementById('transfer-money-btn').addEventListener('click', function
     setInnerText(totalNewAvailableBalance)
 
     const data = {
-        name : 'Transfer Money',
-        date : new Date().toLocaleTimeString()
+        name: 'Transfer Money',
+        date: new Date().toLocaleTimeString()
     }
 
     transactionData.push(data)
 })
 
-document.getElementById('option-transaction').addEventListener('click', function(){
+document.getElementById('option-transaction').addEventListener('click', function () {
     const transactionContainer = document.getElementById('transaction-container')
     transactionContainer.innerText = ''
 
-    for(const data of transactionData){
+    for (const data of transactionData) {
         const div = document.createElement('div')
         div.innerHTML = `
             <div class="bg-white rounded-xl p-3 flex justify-between items-center mt-3">
@@ -191,29 +203,29 @@ document.getElementById('option-transaction').addEventListener('click', function
 // Toggling feature
 
 // For Add money option
-document.getElementById('option-add-money').addEventListener('click', function(e){
+document.getElementById('option-add-money').addEventListener('click', function (e) {
 
     handleToggle('form-add-money')
     handleButtonToggle('option-add-money')
 })
 
 // For Cash Out option
-document.getElementById('option-withdraw').addEventListener('click', function(){
-    
+document.getElementById('option-withdraw').addEventListener('click', function () {
+
     handleToggle('form-withdraw')
     handleButtonToggle('option-withdraw')
 })
 
 // For Transfer Money option
-document.getElementById('option-transfer').addEventListener('click', function(){
-    
+document.getElementById('option-transfer').addEventListener('click', function () {
+
     handleToggle('form-transfer')
     handleButtonToggle('option-transfer')
 })
 
 // For Transaction
-document.getElementById('option-transaction').addEventListener('click', function(){
-    
+document.getElementById('option-transaction').addEventListener('click', function () {
+
     handleToggle('form-transaction')
     handleButtonToggle('option-transaction')
 })
